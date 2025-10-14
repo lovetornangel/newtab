@@ -3,9 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Glass Themed New Tab</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: 
+                linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
+                url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80')
+                no-repeat center center/cover;
+            color: #fff;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(1.02); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 50px 70px;
+            text-align: center;
+            backdrop-filter: blur(15px) saturate(160%);
+            -webkit-backdrop-filter: blur(15px) saturate(160%);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: transform 0.3s ease;
+        }
+
+        .glass-container:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #a1c4fd, #c2e9fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 35px;
+        }
+
+        .search-box {
+            background: rgba(255,255,255,0.25);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            width: 320px;
+            font-size: 1rem;
+            outline: none;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-box::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .search-box:focus {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.05);
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .links a {
+            background: rgba(255,255,255,0.25);
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .links a:hover {
+            background: rgba(255,255,255,0.45);
+            color: #a1c4fd;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="glass-container">
+        <h1>✨ New Tab ✨</h1>
+        <p>search up smth im not looking (trust)</p></p>
+        <form action="https://www.google.com/search" method="get" target="_blank">
+            <input class="search-box" type="text" name="q" placeholder="Search Google...">
+        </form>
+        <div class="links">
+            <a href="https://www.github.com" target="_blank">GitHub</a>
+            <a href="https://www.youtube.com" target="_blank">YouTube</a>
+            <a href="https://www.reddit.com" target="_blank">Reddit</a>
+            <a href="https://www.twitter.com" target="_blank">Twitter</a>
+        </div>
+    </div>
 </body>
 </html>
