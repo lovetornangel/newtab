@@ -18,11 +18,32 @@
             justify-content: center;
             font-family: 'Segoe UI', Arial, sans-serif;
             background: 
-                linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
+                linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%),
                 url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80')
                 no-repeat center center/cover;
             color: #fff;
             animation: fadeIn 1.5s ease-in-out;
+            overflow: hidden;
+        }
+
+        /* Animated floating bubbles */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.25;
+            animation: float 12s infinite linear;
+            pointer-events: none;
+        }
+        .bubble1 { width: 120px; height: 120px; left: 10vw; top: 80vh; background: #fff; animation-delay: 0s; }
+        .bubble2 { width: 80px; height: 80px; left: 80vw; top: 90vh; background: #a1c4fd; animation-delay: 2s; }
+        .bubble3 { width: 60px; height: 60px; left: 50vw; top: 100vh; background: #c2e9fb; animation-delay: 4s; }
+        .bubble4 { width: 100px; height: 100px; left: 70vw; top: 85vh; background: #fff; animation-delay: 6s; }
+        .bubble5 { width: 90px; height: 90px; left: 30vw; top: 95vh; background: #a1c4fd; animation-delay: 8s; }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 0.25; }
+            70% { opacity: 0.35; }
+            100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
         }
 
         @keyframes fadeIn {
@@ -31,47 +52,66 @@
         }
 
         .glass-container {
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            padding: 50px 70px;
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 24px;
+            padding: 54px 80px 40px 80px;
             text-align: center;
-            backdrop-filter: blur(15px) saturate(160%);
-            -webkit-backdrop-filter: blur(15px) saturate(160%);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            transition: transform 0.3s ease;
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            border: 1.5px solid rgba(255, 255, 255, 0.28);
+            transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+            position: relative;
+            z-index: 1;
         }
 
         .glass-container:hover {
-            transform: scale(1.02);
+            transform: scale(1.025);
         }
 
         h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #a1c4fd, #c2e9fb);
+            font-size: 3.2rem;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #a1c4fd, #c2e9fb, #fbc2eb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            animation: popIn 1s cubic-bezier(.4,2,.6,1);
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.95);}
+            100% { opacity: 1; transform: scale(1);}
+        }
+
+        .date-time {
+            font-size: 1.1rem;
+            color: #fff;
+            opacity: 0.8;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+            animation: fadeIn 1.5s 0.5s backwards;
         }
 
         p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 35px;
+            font-size: 1.18rem;
+            opacity: 0.92;
+            margin-bottom: 32px;
+            animation: fadeIn 1.5s 0.7s backwards;
         }
 
         .search-box {
-            background: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.28);
             border: none;
-            border-radius: 10px;
-            padding: 12px 20px;
-            width: 320px;
-            font-size: 1rem;
+            border-radius: 12px;
+            padding: 14px 22px;
+            width: 340px;
+            font-size: 1.08rem;
             outline: none;
             color: #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.13);
+            transition: all 0.3s cubic-bezier(.4,2,.6,1);
+            margin-bottom: 10px;
         }
 
         .search-box::placeholder {
@@ -80,50 +120,86 @@
 
         .search-box:focus {
             background: rgba(255,255,255,0.4);
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
 
         .links {
             display: flex;
             justify-content: center;
-            gap: 24px;
+            gap: 22px;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 22px;
+            animation: fadeIn 1.5s 1s backwards;
         }
 
         .links a {
-            background: rgba(255,255,255,0.25);
-            padding: 12px 24px;
-            border-radius: 8px;
-            color: #fff;
+            background: rgba(255,255,255,0.23);
+            padding: 13px 26px;
+            border-radius: 10px;
+            color: #222;
             text-decoration: none;
             font-weight: 500;
             letter-spacing: 0.5px;
-            transition: all 0.25s ease;
+            transition: all 0.22s cubic-bezier(.4,2,.6,1);
             backdrop-filter: blur(10px);
+            box-shadow: 0 1px 8px rgba(31,38,135,0.08);
+            font-size: 1.08rem;
+            border: 1px solid rgba(255,255,255,0.13);
         }
 
         .links a:hover {
             background: rgba(255,255,255,0.45);
-            color: #a1c4fd;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            color: #0078d7;
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+        }
+
+        @media (max-width: 600px) {
+            .glass-container {
+                padding: 28px 8vw 24px 8vw;
+            }
+            .search-box {
+                width: 90vw;
+                min-width: 0;
+            }
+            h1 {
+                font-size: 2.1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="bubble bubble1"></div>
+    <div class="bubble bubble2"></div>
+    <div class="bubble bubble3"></div>
+    <div class="bubble bubble4"></div>
+    <div class="bubble bubble5"></div>
     <div class="glass-container">
-        <h1>✨ New Tab ✨</h1>
-        <p>search up smth im not looking (trust)</p></p>
-        <form action="https://www.google.com/search" method="get" target="_blank">
-            <input class="search-box" type="text" name="q" placeholder="Search Google...">
+        <h1>✨ xX2o19Nil_EtohBoomsunaXx's New Tab ✨</h1>
+        <div class="date-time" id="datetime"></div>
+        <p>uhmm search up smth ig.. yeah</p>
+        <form action="https://www.google.com/search" method="get" target="_blank" autocomplete="off">
+            <input class="search-box" type="text" name="q" placeholder="Search Google..." autofocus>
         </form>
         <div class="links">
-            <a href="https://www.github.com" target="_blank">GitHub</a>
+            <a href="https://www.github.com" target="_blank">GitHub!11</a>
             <a href="https://www.youtube.com" target="_blank">YouTube</a>
-            <a href="https://www.reddit.com" target="_blank">Reddit</a>
-            <a href="https://www.twitter.com" target="_blank">Twitter</a>
+            <a href="https://www.knowledgehook.com" target="_blank">knowledgehook</a>
+            <a href="https://www.gmail.com" target="_blank">Gee Gamil</a>
+            <a href="https://www.wikipedia.org" target="_blank">Wikipedia</a>
         </div>
     </div>
+    <script>
+        // Live date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = now.toLocaleDateString(undefined, options);
+            const time = now.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('datetime').textContent = `${date} — ${time}`;
+        }
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    </script>
 </body>
 </html>
