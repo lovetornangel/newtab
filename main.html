@@ -14,18 +14,11 @@
         position:relative;
     }
 
-    /* Background with animated holo orbs */
-    body::before {
-        content:"";
-        position:absolute; inset:0;
-        background:url('https://www.muchbetteradventures.com/magazine/content/images/2024/04/mount-everest-at-sunset.jpg?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-        filter: blur(2px) brightness(0.3) saturate(0.77);
-        z-index:-3;
-        animation: zoom 40s ease-in-out infinite alternate;
-        transform: scale(1.1);
+    /* YouTube video background */
+    #bg-video {
+        position:fixed; top:0; left:0; width:100%; height:100%; object-fit:cover;
+        z-index:-3; pointer-events:none;
     }
-
-    @keyframes zoom { from{transform:scale(1.05);} to{transform:scale(1.15);} }
 
     body::after {
         content:"";
@@ -115,6 +108,9 @@
 </style>
 </head>
 <body>
+    <!-- Background YouTube Video -->
+    <iframe id="bg-video" src="https://www.youtube.com/embed/nj2vwu0LeG8?autoplay=1&mute=1&controls=0&loop=1&playlist=nj2vwu0LeG8" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+
     <div class="navbar">
         <h2>✨ freaktab ✨</h2>
         <div class="clock" id="clock">--:--:--</div>
