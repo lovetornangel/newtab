@@ -3,211 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>✨ New Tab ✨</title>
+<title>✨ Anori FreakTab ✨</title>
 <style>
-    * {
-        box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; margin:0; padding:0; }
     body {
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        overflow: hidden;
-        font-family: "Poppins", "Segoe UI", sans-serif;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        font-family: 'Poppins', sans-serif;
+        height:100vh; overflow:hidden; color:#fff;
+        display:flex; justify-content:center; align-items:center;
+        background:#0a0a0a;
+        position:relative;
     }
 
-    /* Background with blur overlay */
+    /* Background with animated holo orbs */
     body::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80") center/cover no-repeat;
-        filter: blur(14px) brightness(0.7);
-        z-index: -2;
+        content:"";
+        position:absolute; inset:0;
+        background:url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        filter: blur(16px) brightness(0.5) saturate(1.5);
+        z-index:-3;
+        animation: zoom 40s ease-in-out infinite alternate;
         transform: scale(1.1);
-        animation: zoomIn 40s ease-in-out infinite alternate;
     }
 
-    @keyframes zoomIn {
-        from { transform: scale(1.05);}
-        to { transform: scale(1.15);}
-    }
+    @keyframes zoom { from{transform:scale(1.05);} to{transform:scale(1.15);} }
 
-    /* floating color overlay */
     body::after {
-        content: "";
-        position: absolute;
-        inset: 0;
+        content:"";
+        position:absolute; inset:0;
         background: radial-gradient(circle at 20% 30%, rgba(180,90,255,0.15), transparent 60%),
                     radial-gradient(circle at 80% 70%, rgba(255,150,100,0.18), transparent 60%);
-        animation: floatGlow 12s ease-in-out infinite alternate;
-        z-index: -1;
+        animation: floatGlow 12s ease-in-out infinite alternate, hueShift 40s linear infinite;
+        z-index:-2;
     }
 
-    @keyframes floatGlow {
-        0% { transform: translateY(0px); opacity: 0.8; }
-        100% { transform: translateY(-30px); opacity: 1; }
-    }
+    @keyframes floatGlow {0%{transform:translateY(0);opacity:0.8;}100%{transform:translateY(-30px);opacity:1;}}
+    @keyframes hueShift {0%{filter:hue-rotate(0deg);}100%{filter:hue-rotate(360deg);}}
 
-    /* Navbar glass header */
+    /* Navbar */
     .navbar {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 14px 40px;
-        backdrop-filter: blur(20px) saturate(150%);
-        background: rgba(255, 255, 255, 0.08);
-        border-bottom: 1px solid rgba(255,255,255,0.15);
-        box-shadow: 0 5px 30px rgba(0,0,0,0.25);
-        z-index: 10;
+        position:fixed; top:0; width:100%; display:flex; justify-content:space-between; align-items:center;
+        padding:14px 40px; backdrop-filter: blur(20px) saturate(180%);
+        background: rgba(255,255,255,0.08); border-bottom:1px solid rgba(255,255,255,0.15);
+        box-shadow: 0 5px 30px rgba(0,0,0,0.25); z-index:10;
     }
+    .navbar h2 { font-size:1.1rem; opacity:0.85; }
+    .clock { font-family:'Share Tech Mono', monospace; font-size:1.2rem; opacity:0.9; }
 
-    .navbar h2 {
-        font-size: 1.1rem;
-        letter-spacing: 0.8px;
-        opacity: 0.85;
-    }
-
-    .clock {
-        font-family: monospace;
-        font-size: 1.2rem;
-        opacity: 0.9;
-    }
-
-    /* Main glass card */
+    /* Glass Card */
     .glass {
-        margin-top: 6vh;
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 24px;
-        padding: 80px 80px;
-        text-align: center;
+        margin-top:6vh; background: rgba(255,255,255,0.06);
+        border-radius: 28px; padding:60px 60px; text-align:center;
         backdrop-filter: blur(25px) saturate(180%);
-        border: 1px solid rgba(255,255,255,0.18);
-        box-shadow: 0 15px 50px rgba(0,0,0,0.4);
-        animation: fadeIn 1.5s ease;
-        transition: transform 0.6s cubic-bezier(.4,2,.6,1);
+        border:1px solid rgba(255,255,255,0.15);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+        animation: fadeIn 1.5s ease, pulseGlass 6s ease-in-out infinite;
+        transition: transform 0.5s ease;
     }
+    .glass:hover { transform: scale(1.03); }
 
-    .glass:hover {
-        transform: scale(1.03);
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.95);}
-        to { opacity: 1; transform: scale(1);}
-    }
+    @keyframes fadeIn { from {opacity:0; transform:scale(0.95);} to{opacity:1; transform:scale(1);} }
+    @keyframes pulseGlass {0%,100%{transform:scale(1);}50%{transform:scale(1.02);}}
 
     h1 {
-        font-size: 3rem;
-        margin-bottom: 10px;
-        background: linear-gradient(90deg, #AB79D9, #FAB9DA, #EDDD53);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        font-size:3rem; margin-bottom:10px;
+        background: linear-gradient(90deg,#AB79D9,#FAB9DA,#EDDD53);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+        animation: glitchText 2s infinite;
     }
 
-    .datetime {
-        font-size: 1.1rem;
-        opacity: 0.85;
-        margin-bottom: 20px;
+    @keyframes glitchText {
+        0%,100%{transform:none;} 
+        25%{transform:translate(2px,-2px);} 
+        50%{transform:translate(-2px,2px);} 
+        75%{transform:translate(2px,2px);}
     }
 
-    p {
-        font-size: 1.1rem;
-        opacity: 0.9;
-        margin-bottom: 28px;
-    }
+    .datetime { font-size:1.1rem; opacity:0.85; margin-bottom:20px; }
+    p { font-size:1.1rem; opacity:0.9; margin-bottom:28px; }
 
     .search-box {
-        width: 380px;
-        padding: 14px 20px;
-        border-radius: 12px;
-        border: none;
-        outline: none;
-        background: rgba(255,255,255,0.12);
-        color: #fff;
-        font-size: 1.05rem;
-        transition: 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        width:360px; padding:14px 20px; border-radius:12px;
+        border:none; outline:none; background: rgba(255,255,255,0.12);
+        color:#fff; font-size:1.05rem; transition:0.3s ease; box-shadow:0 4px 15px rgba(0,0,0,0.2);
     }
+    .search-box::placeholder { color: rgba(255,255,255,0.7); }
+    .search-box:focus { background: rgba(0,0,0,0.3); transform:scale(1.05); }
 
-    .search-box::placeholder {
-        color: rgba(255,255,255,0.7);
-    }
-
-    .search-box:focus {
-        background: rgba(0,0,0,0.3);
-        transform: scale(1.05);
-    }
-
-    .links {
-        display: flex;
-        justify-content: center;
-        gap: 24px;
-        margin-top: 32px;
-        flex-wrap: wrap;
-    }
-
+    /* Links */
+    .links { display:flex; justify-content:center; gap:24px; margin-top:32px; flex-wrap:wrap; }
     .link {
-        background: rgba(255,255,255,0.1);
-        border: 1px solid rgba(255,255,255,0.15);
-        border-radius: 14px;
-        padding: 12px 18px;
-        color: #fff;
-        text-decoration: none;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: 0.25s ease;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
+        border-radius:16px; padding:12px 18px; color:#fff; text-decoration:none;
+        font-weight:500; display:flex; align-items:center; gap:10px;
+        transition:0.25s ease; box-shadow:0 4px 12px rgba(0,0,0,0.15);
     }
-
     .link:hover {
-        background: rgba(255,255,255,0.25);
+        background: linear-gradient(135deg,#AB79D9,#FAB9DA,#EDDD53);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
         transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 6px 25px rgba(0,0,0,0.25);
+        box-shadow:0 6px 25px rgba(0,0,0,0.25);
     }
+    .link img { width:20px; height:20px; filter:brightness(0) invert(1); transition: transform 0.4s ease; }
+    .link:hover img { transform: rotate(15deg) scale(1.2) translateY(-3px); }
 
-    .link img {
-        width: 20px;
-        height: 20px;
-        filter: brightness(0) invert(1);
-    }
-
-    @media (max-width: 600px) {
-        .glass {
-            width: 90%;
-            padding: 40px 24px;
-        }
-        h1 {
-            font-size: 2.2rem;
-        }
-        .search-box {
-            width: 100%;
-        }
-        .links {
-            gap: 16px;
-        }
+    @media (max-width:600px){
+        .glass { width:90%; padding:40px 24px; }
+        h1 { font-size:2.2rem; }
+        .search-box { width:100%; }
+        .links { gap:16px; }
     }
 </style>
 </head>
 <body>
     <div class="navbar">
-        <h2>✨ xX2o19Nil_EtohBoomsunaXx's Freaktab versionee 1.07 ✨</h2>
+        <h2>✨ Anori FreakTab v2.0 ✨</h2>
         <div class="clock" id="clock">--:--:--</div>
     </div>
 
     <div class="glass">
-        <h1>BoomsunaLover221's NEw tab !! <h1>
+        <h1>BoomsunaLover221's Anori Tab !!</h1>
         <div class="datetime" id="datetime"></div>
         <p>search up smth !! (or else) </p>
 
@@ -235,16 +149,16 @@
     </div>
 
     <script>
-        function updateClock() {
+        function updateClock(){
             const now = new Date();
-            const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const time = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
             document.getElementById('clock').textContent = time;
 
-            const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+            const options = { weekday:'long', month:'long', day:'numeric', year:'numeric' };
             const date = now.toLocaleDateString(undefined, options);
             document.getElementById('datetime').textContent = date;
         }
-        setInterval(updateClock, 1000);
+        setInterval(updateClock,1000);
         updateClock();
     </script>
 </body>
