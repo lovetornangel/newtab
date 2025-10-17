@@ -135,32 +135,32 @@ button:hover{background:rgba(255,255,255,0.35);transform:scale(1.05);}
 
 <div class="search-section">
   <form action="https://www.google.com/search" target="_blank">
-    <input type="text" name="q" class="search-box" placeholder="Search the multiverse..." autofocus>
+    <input type="text" name="q" class="search-box" placeholder="search now, you freak..." autofocus>
   </form>
 </div>
 
 <div class="grid">
-  <div class="tool"><h3>🧮 Calculator</h3>
+  <div class="tool"><h3>🧮 Calculatore</h3>
     <input id="calc" placeholder="e.g. 5*8+2"><button onclick="calcResult()">=</button><div id="calcOut"></div>
   </div>
 
-  <div class="tool"><h3>🧾 To-Do List</h3>
+  <div class="tool"><h3>🧾 Wiggleslop List</h3>
     <input id="todoInput" placeholder="Add task..."><button onclick="addTodo()">Add</button>
     <ul id="todoList" style="list-style:none;padding:0;"></ul>
   </div>
 
-  <div class="tool"><h3>🎶 Music Player</h3>
+  <div class="tool"><h3>🎶 Terrible Music Player That Barely Works..</h3>
     <audio id="player" controls style="width:100%;"></audio>
     <button onclick="nextTrack()">Next Track 🔁</button>
     <p id="trackName" style="opacity:.7;"></p>
   </div>
 
-  <div class="tool"><h3>🧠 Chaos Button</h3>
-    <p id="chaosTxt">Click it if you dare...</p>
-    <button onclick="chaos()">CHAOS</button>
+  <div class="tool"><h3>🧠 Chaos Button That does... Something </h3>
+    <p id="chaosTxt">Click it if you dare... uhmm yeah...</p>
+    <button onclick="chaos()">OK I DARE!!11</button>
   </div>
 
-  <div class="tool"><h3>⏱️ Timer</h3>
+  <div class="tool"><h3>⏱️ TicklyTimer 2.0</h3>
     <input type="number" id="seconds" placeholder="Seconds">
     <button onclick="startTimer()">Start</button>
     <p id="timerDisplay"></p>
@@ -190,10 +190,10 @@ const quotes=["Stay freaky or fade into normality.","Gyatt goals, mew limits.","
 document.getElementById("quote").textContent=quotes[Math.floor(Math.random()*quotes.length)];
 const conds=["Sunny","Cloudy","Rainy","Windy","Vibing"];
 document.getElementById("weather").textContent=`🌦 ${15+Math.floor(Math.random()*10)}°C | ${conds[Math.floor(Math.random()*conds.length)]}`;
-setInterval(()=>{document.getElementById("rizz").textContent=`💋 Rizz Level: ${Math.floor(Math.random()*101)}%`;},2000);
+setInterval(()=>{document.getElementById("rizz").textContent=`💋 Rizz Level: ${Math.floor(Math.random()*10001)}%`;},2000);
 
 /* CALCULATOR */
-function calcResult(){try{calcOut.textContent=eval(calc.value);}catch{calcOut.textContent="Error 💥";}}
+function calcResult(){try{calcOut.textContent=eval(calc.value);}catch{calcOut.textContent="Error Twin... 💥";}}
 
 /* TODO */
 function addTodo(){const t=todoInput.value;if(!t.trim())return;const li=document.createElement("li");li.textContent="• "+t;li.onclick=()=>li.remove();todoList.appendChild(li);todoInput.value="";}
@@ -203,14 +203,14 @@ const jokes=["Why did the web developer go broke? Because they used up all their
 function newJoke(){joke.textContent=jokes[Math.floor(Math.random()*jokes.length)];}
 
 /* ORB */
-const orbFacts=["Bananas are berries, strawberries aren’t.","Cats dream about you.","You are currently in Ohio.","The internet is watching 😳"];
+const orbFacts=["Bananas are berries, strawberries aren’t.","Cats dream about you.","You are currently in Ohio.","The internet is watching 😳","I love Boomsuna"];
 function orbSpeak(){orb.textContent=orbFacts[Math.floor(Math.random()*orbFacts.length)];}
 
 /* CHAOS */
 function chaos(){const msgs=["💀 ur device just got rizzed","🔥 too much sigma detected","🌀 freaky anomaly expanding","🌈 colors intensify","😳 the orb winked at you"];chaosTxt.textContent=msgs[Math.floor(Math.random()*msgs.length)];document.body.style.filter=`hue-rotate(${Math.random()*360}deg)`;setTimeout(()=>document.body.style.filter="none",1500);}
 
 /* MUSIC */
-const tracks=[{name:"3008 Slop",url:"https://nu.vgmtreasurechest.com/soundtracks/3008-gamerip/mmbushfe/1.%20Monday%20Theme.mp3"},{name:"Phonk Drift",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},{name:"Synthwave Drive",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},{name:"Meme Vibes",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"},{name:"Sigma Grindset Rain",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"}];let trackIndex=0;
+const tracks=[{name:"3008 Monday Slop",url:"https://nu.vgmtreasurechest.com/soundtracks/3008-gamerip/mmbushfe/1.%20Monday%20Theme.mp3"},{name:"Its Going Down Now",url:"https://vgmtreasurechest.com/soundtracks/persona-3-reload-original-soundtrack-2024/oudjirjv/1-30.%20It%E2%80%99s%20Going%20Down%20Now.mp3"},{name:"Synthwave Drive",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},{name:"Meme Vibes",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"},{name:"Sigma Grindset Rain",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"}];let trackIndex=0;
 function loadTrack(){player.src=tracks[trackIndex].url;trackName.textContent=tracks[trackIndex].name;player.play();}
 function nextTrack(){trackIndex=(trackIndex+1)%tracks.length;loadTrack();}
 loadTrack();
