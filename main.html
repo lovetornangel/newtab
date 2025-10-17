@@ -210,7 +210,7 @@ function orbSpeak(){orb.textContent=orbFacts[Math.floor(Math.random()*orbFacts.l
 function chaos(){const msgs=["💀 ur device just got rizzed","🔥 too much sigma detected","🌀 freaky anomaly expanding","🌈 colors intensify","😳 the orb winked at you"];chaosTxt.textContent=msgs[Math.floor(Math.random()*msgs.length)];document.body.style.filter=`hue-rotate(${Math.random()*360}deg)`;setTimeout(()=>document.body.style.filter="none",1500);}
 
 /* MUSIC */
-const tracks=[{name:"Lofi Chill",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},{name:"Phonk Drift",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},{name:"Synthwave Drive",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},{name:"Meme Vibes",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"},{name:"Sigma Grindset Rain",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"}];let trackIndex=0;
+const tracks=[{name:"3008 Slop",url:"https://nu.vgmtreasurechest.com/soundtracks/3008-gamerip/mmbushfe/1.%20Monday%20Theme.mp3"},{name:"Phonk Drift",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},{name:"Synthwave Drive",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},{name:"Meme Vibes",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"},{name:"Sigma Grindset Rain",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"}];let trackIndex=0;
 function loadTrack(){player.src=tracks[trackIndex].url;trackName.textContent=tracks[trackIndex].name;player.play();}
 function nextTrack(){trackIndex=(trackIndex+1)%tracks.length;loadTrack();}
 loadTrack();
