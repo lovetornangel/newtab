@@ -3,296 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>freaktab ULTRA+</title>
+<title>freaktab ULTRA MEGA++ Ω</title>
 <style>
-    *{box-sizing:border-box;margin:0;padding:0;}
-    body{
-        font-family:'monospace',sans-serif;
-        color:#fff;
-        height:100vh;overflow-y:auto;
-        background:#080808;
-        display:flex;flex-direction:column;align-items:center;
-        position:relative;
-    }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'monospace',sans-serif;
+  color:#fff;
+  height:100vh;overflow-y:auto;
+  background:#080808;
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;
+}
+canvas#bg{position:fixed;inset:0;z-index:-5;pointer-events:none;}
+body::before{
+  content:"";position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  filter:blur(3px) brightness(0.25);
+  z-index:-3;
+  animation:zoom 40s ease-in-out infinite alternate;
+}
+@keyframes zoom{from{transform:scale(1);}to{transform:scale(1.1);}}
+body::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 40%,rgba(200,100,255,0.25),transparent 70%),
+             radial-gradient(circle at 70% 70%,rgba(255,150,120,0.25),transparent 60%);
+  z-index:-2;
+  animation:hueShift 30s linear infinite;
+}
+@keyframes hueShift{0%{filter:hue-rotate(0deg);}100%{filter:hue-rotate(360deg);}}
 
-    body::before{
-        content:"";
-        position:absolute;inset:0;
-        background:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-        filter:blur(3px) brightness(0.2);
-        z-index:-3;
-        animation:zoom 40s ease-in-out infinite alternate;
-    }
-    @keyframes zoom{from{transform:scale(1);}to{transform:scale(1.1);}}
+/* Navbar */
+.navbar{
+  position:fixed;top:0;width:100%;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 36px;
+  backdrop-filter:blur(8px) saturate(180%);
+  background:rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  z-index:10;
+}
+.navbar h2{opacity:.85;}
+.clock{font-size:1.1rem;opacity:.9;}
+.nav-links a{
+  color:#fff;text-decoration:none;margin:0 8px;opacity:.8;transition:.2s;
+}
+.nav-links a:hover{opacity:1;text-shadow:0 0 8px #fff;}
+.nav-links{font-size:1rem;}
 
-    body::after{
-        content:"";
-        position:absolute;inset:0;
-        background:radial-gradient(circle at 30% 40%,rgba(200,100,255,0.25),transparent 70%),
-                   radial-gradient(circle at 70% 70%,rgba(255,150,120,0.25),transparent 60%);
-        z-index:-2;
-        animation:hueShift 30s linear infinite;
-    }
-    @keyframes hueShift{0%{filter:hue-rotate(0deg);}100%{filter:hue-rotate(360deg);}}
+/* Headline */
+h1{
+  font-size:3rem;margin-top:90px;
+  background:linear-gradient(90deg,#AB79D9,#FAB9DA,#EDDD53);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:glitch 2s infinite;
+}
+@keyframes glitch{
+  0%,100%{transform:none;}
+  25%{transform:translate(2px,-2px);}
+  50%{transform:translate(-2px,2px);}
+  75%{transform:translate(2px,2px);}
+}
+.moodbar{height:6px;width:60%;border-radius:6px;margin:6px auto;background:linear-gradient(90deg,#0ff,#f0f);animation:mood 10s linear infinite;}
+@keyframes mood{0%{filter:hue-rotate(0deg);}100%{filter:hue-rotate(360deg);}}
 
-    .navbar{
-        position:fixed;top:0;width:100%;
-        display:flex;justify-content:space-between;align-items:center;
-        padding:12px 36px;
-        backdrop-filter:blur(5px) saturate(180%);
-        background:rgba(255,255,255,0.05);
-        border-bottom:1px solid rgba(255,255,255,0.1);
-        z-index:10;
-    }
-    .clock{font-size:1.2rem;opacity:0.9;}
-    .navbar h2{opacity:0.85;}
+/* Widgets */
+.top-widgets{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin:20px 0;}
+.mini{
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(15px);border-radius:12px;padding:14px 20px;text-align:center;width:180px;
+  box-shadow:0 5px 25px rgba(0,0,0,0.4);transition:.3s;
+}
+.mini:hover{transform:scale(1.05);}
 
-    h1{
-        font-size:3rem;
-        margin-top:80px;
-        background:linear-gradient(90deg,#AB79D9,#FAB9DA,#EDDD53);
-        -webkit-background-clip:text;
-        -webkit-text-fill-color:transparent;
-        animation:glitch 2s infinite;
-    }
-    @keyframes glitch{
-        0%,100%{transform:none;}
-        25%{transform:translate(2px,-2px);}
-        50%{transform:translate(-2px,2px);}
-        75%{transform:translate(2px,2px);}
-    }
+/* Search */
+.search-section{width:80%;max-width:800px;text-align:center;margin:30px auto;}
+.search-box{
+  width:100%;padding:20px 25px;font-size:1.4rem;
+  border:none;border-radius:16px;
+  background:rgba(255,255,255,0.1);color:#fff;outline:none;
+  box-shadow:0 0 25px rgba(255,255,255,0.1);transition:.3s;
+}
+.search-box:focus{background:rgba(0,0,0,0.3);box-shadow:0 0 40px rgba(255,255,255,0.2);transform:scale(1.02);}
 
-    .top-widgets{
-        display:flex;gap:20px;flex-wrap:wrap;justify-content:center;
-        margin:20px 0;
-    }
-    .mini{
-        background:rgba(255,255,255,0.06);
-        border:1px solid rgba(255,255,255,0.1);
-        backdrop-filter:blur(15px);
-        border-radius:12px;
-        padding:14px 20px;
-        text-align:center;
-        width:180px;
-        box-shadow:0 5px 25px rgba(0,0,0,0.4);
-        transition:0.3s;
-    }
-    .mini:hover{transform:scale(1.05);}
-
-    .search-section{
-        width:80%;
-        max-width:800px;
-        text-align:center;
-        margin:30px auto;
-    }
-    .search-box{
-        width:100%;
-        padding:20px 25px;
-        font-size:1.4rem;
-        border:none;
-        border-radius:16px;
-        background:rgba(255,255,255,0.1);
-        color:#fff;
-        outline:none;
-        box-shadow:0 0 25px rgba(255,255,255,0.1);
-        transition:0.3s;
-    }
-    .search-box:focus{background:rgba(0,0,0,0.3);box-shadow:0 0 40px rgba(255,255,255,0.2);transform:scale(1.02);}
-
-    .grid{
-        display:grid;
-        grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-        gap:20px;
-        width:85%;
-        margin-bottom:60px;
-    }
-    .tool{
-        background:rgba(255,255,255,0.06);
-        border:1px solid rgba(255,255,255,0.1);
-        border-radius:16px;
-        padding:20px;
-        backdrop-filter:blur(15px);
-        box-shadow:0 5px 30px rgba(0,0,0,0.35);
-        transition:0.3s;
-        text-align:center;
-    }
-    .tool:hover{transform:scale(1.03);}
-    .tool h3{margin-bottom:10px;}
-
-    input,textarea{
-        background:rgba(255,255,255,0.1);
-        border:none;
-        border-radius:8px;
-        color:#fff;
-        padding:8px;
-        width:90%;
-        margin-bottom:8px;
-        font-family:inherit;
-    }
-    button{
-        background:rgba(255,255,255,0.2);
-        border:none;
-        border-radius:8px;
-        color:#fff;
-        padding:8px 12px;
-        cursor:pointer;
-    }
-    button:hover{background:rgba(255,255,255,0.3);}
+/* Tools Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;width:85%;margin-bottom:80px;}
+.tool{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px;padding:20px;backdrop-filter:blur(15px);
+  box-shadow:0 5px 30px rgba(0,0,0,0.35);
+  transition:.3s;text-align:center;
+}
+.tool:hover{transform:scale(1.03);}
+input,textarea{
+  background:rgba(255,255,255,0.1);border:none;border-radius:8px;
+  color:#fff;padding:8px;width:90%;margin-bottom:8px;font-family:inherit;
+}
+button{
+  background:rgba(255,255,255,0.2);border:none;border-radius:8px;
+  color:#fff;padding:8px 12px;cursor:pointer;transition:.2s;
+}
+button:hover{background:rgba(255,255,255,0.35);transform:scale(1.05);}
 </style>
 </head>
 <body>
-    <div class="navbar">
-        <h2>⚡ freaktab ULTRA+</h2>
-        <div class="clock" id="clock"></div>
-    </div>
+<canvas id="bg"></canvas>
 
-    <h1>Welcome, BoomSunaLover221 😎</h1>
+<div class="navbar">
+  <h2>⚡ freaktab ULTRA MEGA++ Ω</h2>
+  <div class="nav-links">
+    <a href="https://github.com" target="_blank">GitHub</a>
+    <a href="https://youtube.com" target="_blank">YouTube</a>
+    <a href="https://discord.com" target="_blank">Discord</a>
+    <a href="https://spotify.com" target="_blank">Spotify</a>
+    <a href="https://mail.google.com" target="_blank">Gee Gamil</a>
+    <a href="https://www.knowledgehook.com" target="_blank">Knowledgehook</a>
+    <a href="https://openai.com" target="_blank">OpenAI</a>
+  </div>
+  <div class="clock" id="clock"></div>
+</div>
 
-    <div class="top-widgets">
-        <div class="mini" id="weather">🌦️ Loading weather...</div>
-        <div class="mini" id="quote">💬 Loading quote...</div>
-        <div class="mini">📅 <span id="date">--</span></div>
-    </div>
+<h1>Welcome back, Daddy 😎</h1>
+<div class="moodbar"></div>
 
-    <div class="search-section">
-        <form action="https://www.google.com/search" target="_blank">
-            <input type="text" name="q" class="search-box" placeholder="Search the multiverse..." autofocus>
-        </form>
-    </div>
+<div class="top-widgets">
+  <div class="mini" id="weather">🌦 Loading...</div>
+  <div class="mini" id="quote">💬 Loading quote...</div>
+  <div class="mini" id="rizz">💋 Rizz Level: 0%</div>
+  <div class="mini" id="countdown">⏳ Next Skibidi Drop: 3d 4h 12m</div>
+</div>
 
-    <div class="grid">
-        <div class="tool">
-            <h3>📝 To-Do</h3>
-            <input id="todoInput" placeholder="New task...">
-            <button onclick="addTodo()">Add</button>
-            <ul id="todoList" style="list-style:none;padding:0;"></ul>
-        </div>
+<div class="search-section">
+  <form action="https://www.google.com/search" target="_blank">
+    <input type="text" name="q" class="search-box" placeholder="Search the multiverse..." autofocus>
+  </form>
+</div>
 
-        <div class="tool">
-            <h3>🗒️ Notes</h3>
-            <textarea id="notes" rows="5" placeholder="Write your chaotic thoughts..."></textarea>
-        </div>
+<div class="grid">
+  <div class="tool"><h3>🧮 Calculator</h3>
+    <input id="calc" placeholder="e.g. 5*8+2"><button onclick="calcResult()">=</button><div id="calcOut"></div>
+  </div>
 
-        <div class="tool">
-            <h3>🧮 Calculator</h3>
-            <input id="calc" placeholder="e.g. 5*8+2">
-            <button onclick="calcResult()">=</button>
-            <div id="calcOut"></div>
-        </div>
+  <div class="tool"><h3>🧾 To-Do List</h3>
+    <input id="todoInput" placeholder="Add task..."><button onclick="addTodo()">Add</button>
+    <ul id="todoList" style="list-style:none;padding:0;"></ul>
+  </div>
 
-        <div class="tool">
-            <h3>⏰ Timer</h3>
-            <input id="timerSec" type="number" placeholder="Seconds...">
-            <button onclick="startTimer()">Start</button>
-            <div id="timerOut">Ready.</div>
-        </div>
+  <div class="tool"><h3>🎶 Music Player</h3>
+    <audio id="player" controls style="width:100%;"></audio>
+    <button onclick="nextTrack()">Next Track 🔁</button>
+    <p id="trackName" style="opacity:.7;"></p>
+  </div>
 
-        <div class="tool">
-            <h3>🎭 Random Joke</h3>
-            <p id="joke">Loading...</p>
-            <button onclick="newJoke()">New Joke</button>
-        </div>
+  <div class="tool"><h3>🧠 Chaos Button</h3>
+    <p id="chaosTxt">Click it if you dare...</p>
+    <button onclick="chaos()">CHAOS</button>
+  </div>
 
-        <div class="tool">
-            <h3>🔄 Converter (cm → inch)</h3>
-            <input id="conv" type="number" placeholder="cm">
-            <button onclick="convert()">Convert</button>
-            <div id="convOut"></div>
-        </div>
+  <div class="tool"><h3>⏱️ Timer</h3>
+    <input type="number" id="seconds" placeholder="Seconds">
+    <button onclick="startTimer()">Start</button>
+    <p id="timerDisplay"></p>
+  </div>
 
-        <div class="tool">
-            <h3>🎶 Music Player</h3>
-            <audio controls style="width:100%;">
-                <source src="https://nu.vgmtreasurechest.com/soundtracks/3008-gamerip/mmbushfe/1.%20Monday%20Theme.mp3" type="audio/mp3">
-            </audio>
-        </div>
+  <div class="tool"><h3>🤡 Random Joke</h3>
+    <p id="joke">Why did the web developer go broke? Because they used up all their cache. 😭</p>
+    <button onclick="newJoke()">New Joke</button>
+  </div>
 
-        <div class="tool">
-            <h3>📆 Mini Calendar</h3>
-            <div id="calendar"></div>
-        </div>
-    </div>
+  <div class="tool"><h3>🔮 Orb of Knowledge</h3>
+    <p id="orb">Consult the orb...</p>
+    <button onclick="orbSpeak()">Consult</button>
+  </div>
+</div>
 
 <script>
-    function updateClock(){
-        const now=new Date();
-        document.getElementById("clock").textContent=now.toLocaleTimeString();
-        document.getElementById("date").textContent=now.toDateString();
-    }
-    setInterval(updateClock,1000);updateClock();
+/* CLOCK */
+function updateClock(){
+  const n=new Date();
+  document.getElementById("clock").textContent=n.toLocaleTimeString();
+}
+setInterval(updateClock,1000);updateClock();
 
-    const quotes=[
-        "“Always stay freaky, Or else Chat GPT may touch you~”",
-        "“Rizz never sleeps, only reloads, or powernaps...”",
-        "“Every tab you open is another reality.”",
-        "“Mew your limits, gyatt your goals.”",
-        "“Even Ohio can’t contain this energy.”"
-    ];
-    document.getElementById("quote").textContent=quotes[Math.floor(Math.random()*quotes.length)];
+/* QUOTES + WEATHER + RIZZ */
+const quotes=["Stay freaky or fade into normality.","Gyatt goals, mew limits.","Ohio energy unmatched.","Every click is destiny unfolding."];
+document.getElementById("quote").textContent=quotes[Math.floor(Math.random()*quotes.length)];
+const conds=["Sunny","Cloudy","Rainy","Windy","Vibing"];
+document.getElementById("weather").textContent=`🌦 ${15+Math.floor(Math.random()*10)}°C | ${conds[Math.floor(Math.random()*conds.length)]}`;
+setInterval(()=>{document.getElementById("rizz").textContent=`💋 Rizz Level: ${Math.floor(Math.random()*101)}%`;},2000);
 
-    const jokes=[
-        "Why did the web developer go broke? Because he used up all his cache!",
-        "I told my computer I needed a break—it said no problem, it’ll go to sleep.",
-        "JavaScript developers never die, they just get undefined.",
-        "CSS walked into a bar. A class was like 'You look so styled!'",
-        "Why did the AI date the user? It couldn’t resist the freaky vibes.",
-       "Why did The EOTH player use noob strat? Because He's a Fraud!!'",
-    ];
-    function newJoke(){document.getElementById("joke").textContent=jokes[Math.floor(Math.random()*jokes.length)];}
-    newJoke();
+/* CALCULATOR */
+function calcResult(){try{calcOut.textContent=eval(calc.value);}catch{calcOut.textContent="Error 💥";}}
 
-    function addTodo(){
-        const inp=document.getElementById("todoInput");
-        if(!inp.value.trim())return;
-        const li=document.createElement("li");
-        li.textContent="• "+inp.value;
-        li.onclick=()=>li.remove();
-        document.getElementById("todoList").appendChild(li);
-        inp.value="";
-    }
+/* TODO */
+function addTodo(){const t=todoInput.value;if(!t.trim())return;const li=document.createElement("li");li.textContent="• "+t;li.onclick=()=>li.remove();todoList.appendChild(li);todoInput.value="";}
 
-    function calcResult(){
-        try{
-            document.getElementById("calcOut").textContent=eval(document.getElementById("calc").value);
-        }catch{
-            document.getElementById("calcOut").textContent="Error 💥";
-        }
-    }
+/* JOKES */
+const jokes=["Why did the web developer go broke? Because they used up all their cache!","CSS walked into a bar...","JavaScript developers never die...","Why did AI date the user? Mew energy"];
+function newJoke(){joke.textContent=jokes[Math.floor(Math.random()*jokes.length)];}
 
-    function startTimer(){
-        let sec=parseInt(document.getElementById("timerSec").value);
-        const out=document.getElementById("timerOut");
-        if(isNaN(sec)||sec<=0){out.textContent="Enter valid seconds!";return;}
-        out.textContent="Running...";
-        const interval=setInterval(()=>{
-            out.textContent=sec+"s";
-            sec--;
-            if(sec<0){clearInterval(interval);out.textContent="⏰ Done!";}
-        },1000);
-    }
+/* ORB */
+const orbFacts=["Bananas are berries, strawberries aren’t.","Cats dream about you.","You are currently in Ohio.","The internet is watching 😳"];
+function orbSpeak(){orb.textContent=orbFacts[Math.floor(Math.random()*orbFacts.length)];}
 
-    function convert(){
-        const cm=parseFloat(document.getElementById("conv").value);
-        if(isNaN(cm)){document.getElementById("convOut").textContent="Invalid";}
-        else document.getElementById("convOut").textContent=(cm/2.54).toFixed(2)+" inches";
-    }
+/* CHAOS */
+function chaos(){const msgs=["💀 ur device just got rizzed","🔥 too much sigma detected","🌀 freaky anomaly expanding","🌈 colors intensify","😳 the orb winked at you"];chaosTxt.textContent=msgs[Math.floor(Math.random()*msgs.length)];document.body.style.filter=`hue-rotate(${Math.random()*360}deg)`;setTimeout(()=>document.body.style.filter="none",1500);}
 
-    function generateCalendar(){
-        const now=new Date();
-        const month=now.toLocaleString('default',{month:'long'});
-        const year=now.getFullYear();
-        let days="";
-        const d=new Date(year,now.getMonth()+1,0).getDate();
-        for(let i=1;i<=d;i++){
-            days+=`<span style="margin:2px;opacity:${i===now.getDate()?1:0.6};font-weight:${i===now.getDate()?'bold':'normal'};">${i}</span>`;
-        }
-        document.getElementById("calendar").innerHTML=`<b>${month} ${year}</b><br>${days}`;
-    }
-    generateCalendar();
+/* MUSIC */
+const tracks=[{name:"Lofi Chill",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},{name:"Phonk Drift",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},{name:"Synthwave Drive",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},{name:"Meme Vibes",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"},{name:"Sigma Grindset Rain",url:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"}];let trackIndex=0;
+function loadTrack(){player.src=tracks[trackIndex].url;trackName.textContent=tracks[trackIndex].name;player.play();}
+function nextTrack(){trackIndex=(trackIndex+1)%tracks.length;loadTrack();}
+loadTrack();
 
-    const temp=(15+Math.floor(Math.random()*10));
-    const conds=["Sunny","Cloudy","Rainy","Windy","Chill"];
-    document.getElementById("weather").textContent=`🌦️ ${temp}°C | ${conds[Math.floor(Math.random()*conds.length)]}`;
+/* TIMER */
+let timerInterval;
+function startTimer(){clearInterval(timerInterval);let sec=parseInt(seconds.value);if(isNaN(sec)||sec<=0){timerDisplay.textContent="Enter valid seconds!";return;}
+timerDisplay.textContent=`⏳ ${sec}s`;timerInterval=setInterval(()=>{sec--;if(sec>=0){timerDisplay.textContent=`⏳ ${sec}s`;}} ,1000);setTimeout(()=>{clearInterval(timerInterval);timerDisplay.textContent="⏰ Done!";},sec*1000);}
+
 </script>
 </body>
 </html>
